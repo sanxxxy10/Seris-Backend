@@ -42,7 +42,7 @@ app.use("/uploads", express.static(path.join(path.resolve(), "uploads")));
 app.use("/auth", authRoutes); // ✅ attach route
 app.use("/api/projects", projectRoutes);
 app.use("/api/services", serviceRoutes);
-app.use("/api/reviews", reviewRoutes);
+app.use("/reviews", reviewRoutes);
 app.use("/api/offers", offerRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/users", userRoutes);
