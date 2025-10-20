@@ -471,7 +471,7 @@ router.post("/", verifyToken, async (req, res) => {
       projectName,
       websiteType,
       budget,
-      status: "Pending", // default
+      status: "pending", // default
     });
 
     const emailData = {
@@ -581,5 +581,6 @@ router.get("/admin/all-projects", async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 });
+
 
 export default router;
