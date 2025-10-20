@@ -12,6 +12,7 @@ import userRoutes from "./routes/user.js";
 import path from "path";
 
 dotenv.config();
+
 const app = express();
 
 // Middleware
@@ -23,7 +24,8 @@ app.use(express.json());
 app.use("/uploads", express.static(path.join(path.resolve(), "uploads")));
 
 // Routes
-app.use("/api/auth", authRoutes);
+
+app.use("/auth", authRoutes); // ✅ attach route
 app.use("/api/projects", projectRoutes);
 app.use("/api/services", serviceRoutes);
 app.use("/api/reviews", reviewRoutes);

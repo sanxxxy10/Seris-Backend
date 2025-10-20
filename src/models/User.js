@@ -15,7 +15,11 @@ const userSchema = new mongoose.Schema({
   region: { type: String, default: "" },
   state: { type: String, default: "" },
   city: { type: String, default: "" },
-  pinCode: { type: String, default: "" }
+  pinCode: { type: String, default: "" },
+
+  // 🔹 For password reset
+  resetPasswordToken: { type: String },
+  resetPasswordExpires: { type: Date }
 }, { timestamps: true });
 
 // Hash password before saving
