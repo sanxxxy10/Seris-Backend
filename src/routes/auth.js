@@ -13,51 +13,109 @@ const router = express.Router();
 // ========================
 router.post("/signup", async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    // 1. Destructure ALL the fields from the request body sent by the frontend
+    const {
+      name,
+      email,
+      password,
+      companyName,
+      mobileNo,
+      companyField,
+      region,
+      state,
+      city,
+      pinCode,
+    } = req.body;
+
+    // Basic validation
+    if (!name || !email || !password) {
+      return res
+        .status(400)
+        .json({ error: "Name, email, and password are required." });
+    }
+
+    // Check if user already exists
     const existingUser = await User.findOne({ email });
-    if (existingUser) return res.status(400).json({ error: "Email already registered" });
+    if (existingUser) {
+      return res
+        .status(409) // 409 Conflict is more appropriate here
+        .json({ error: "User with this email already exists." });
+    }
 
-    const user = new User({ name, email, password });
-    await user.save();
+    // 2. Create a new User instance with ALL the received data
+    const newUser = new User({
+      name,
+      email,
+      password, // The hashing is handled by the .pre('save') hook in your model
+      companyName,
+      mobileNo,
+      companyField,
+      region,
+      state,
+      city,
+      pinCode,
+    });
 
+    // 3. Save the new user to the database
+    const savedUser = await newUser.save();
+
+    // 4. Create a JWT token
     const token = jwt.sign(
-      { id: user._id, role: user.role, name: user.name, email: user.email },
-      process.env.JWT_SECRET,
-      { expiresIn: "7d" }
+      { id: savedUser._id, role: savedUser.role },
+      process.env.JWT_SECRET, // Make sure you have JWT_SECRET in your .env file
+      { expiresIn: "1d" }
     );
 
-    res.status(201).json({ success: true, token, user });
+    // Don't send the password back to the client
+    savedUser.password = undefined;
+
+    res.status(201).json({
+      success: true,
+      token,
+      user: savedUser,
+    });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Server error" });
+    console.error("SIGNUP ERROR:", err.message);
+    res.status(500).json({ error: "Server error during signup process." });
   }
 });
 
-// ========================
-// ✅ LOGIN
-// ========================
+// ==========================================================
+// 🔹 LOGIN ROUTE (Unchanged, but included for completeness) 🔹
+// ==========================================================
 router.post("/login", async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email });
-    if (!user) return res.status(404).json({ error: "User not found" });
+    try {
+        const { email, password } = req.body;
 
-    const isMatch = await user.comparePassword(password);
-    if (!isMatch) return res.status(401).json({ error: "Invalid credentials" });
+        if (!email || !password) {
+            return res.status(400).json({ error: "Email and password are required." });
+        }
 
-    const token = jwt.sign(
-      { id: user._id, role: user.role, name: user.name, email: user.email },
-      process.env.JWT_SECRET,
-      { expiresIn: "7d" }
-    );
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(401).json({ error: "Invalid credentials." });
+        }
 
-    res.json({ success: true, token, user });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Server error" });
-  }
+        const isMatch = await user.comparePassword(password);
+        if (!isMatch) {
+            return res.status(401).json({ error: "Invalid credentials." });
+        }
+
+        const token = jwt.sign(
+            { id: user._id, role: user.role },
+            process.env.JWT_SECRET,
+            { expiresIn: '1d' }
+        );
+
+        user.password = undefined;
+
+        res.status(200).json({ success: true, token, user });
+
+    } catch (err) {
+        console.error("LOGIN ERROR:", err.message);
+        res.status(500).json({ error: "Server error during login." });
+    }
 });
-
 // ========================
 // ✅ FORGOT PASSWORD
 // ========================
