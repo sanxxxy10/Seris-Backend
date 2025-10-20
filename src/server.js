@@ -16,10 +16,24 @@ dotenv.config();
 const app = express();
 
 // Middleware
+const allowedOrigins = [
+  "https://seris.site",      // deployed frontend
+  "http://127.0.0.1:5500",   // local Live Server
+  "http://localhost:5500"    // alternative local host
+];
+
 app.use(cors({
-  origin: process.env.FRONTEND_URL || "*", // frontend URL, e.g., https://seris.site
+  origin: function(origin, callback) {
+    if (!origin) return callback(null, true); // allow Postman or server-to-server
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = `CORS policy: The origin ${origin} is not allowed`;
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
   credentials: true
 }));
+
 app.use(express.json());
 app.use("/uploads", express.static(path.join(path.resolve(), "uploads")));
 
