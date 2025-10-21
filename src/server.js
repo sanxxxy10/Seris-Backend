@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
 import authRoutes from "./routes/auth.js";
-import projectRoutes from "./routes/project.js";
+import projectRoutes from "./routes/projects.js"; // adjust path
 import serviceRoutes from "./routes/service.js";
 import reviewRoutes from "./routes/review.js";
 import offerRoutes from "./routes/offer.js";

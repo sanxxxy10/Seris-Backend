@@ -7,7 +7,7 @@ const router = express.Router();
 
 // ✅ Add new service (admin only)
 router.post("/", verifyToken, upload.single("thumbnail"), async (req, res) => {
-  try {
+  try { 
     if (req.user.role !== "admin") {
       return res.status(403).json({ message: "Access denied" });
     }
