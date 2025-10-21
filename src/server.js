@@ -37,6 +37,7 @@ app.use(cors({
 app.use(express.json());
 app.use("/uploads", express.static(path.join(path.resolve(), "uploads")));
 
+
 // Routes
 
 app.use("/auth", authRoutes); // ✅ attach route
@@ -61,5 +62,4 @@ mongoose
     app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
   })
   .catch((err) => console.error("❌ MongoDB Connection Failed:", err));
-
 
