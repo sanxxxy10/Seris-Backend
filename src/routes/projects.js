@@ -9,30 +9,28 @@ const router = express.Router();
 router.post("/", verifyToken, async (req, res) => {
   try {
     const {
-      name,
-      companyName,
-      mobile,
-      email,
-      websiteLink,
-      projectName,
-      websiteType,
-      budget,
-      projectDocuments // array of { name, driveLink }
-    } = req.body;
+  name,
+  email,
+  mobileNo,   // frontend sends this
+  websiteLink,
+  projectName,
+  websiteType,
+  budget,
+  projectDocuments,
+} = req.body;
 
-    const newProject = await Project.create({
-      user: req.user.id,
-      name,
-      companyName,
-      mobile,
-      email,
-      websiteLink,
-      projectName,
-      websiteType,
-      budget,
-      projectDocuments,
-      status: "pending",
-    });
+const newProject = new Project({
+  user: req.user.id,
+  name,
+  email,
+  mobile: mobileNo,  // map mobileNo to schema's mobile
+  websiteLink,
+  projectName,
+  websiteType,
+  budget,
+  projectDocuments: projectDocuments || [],
+});
+
 
     const emailData = {
       name,
