@@ -111,5 +111,5 @@ router.get("/", verifyToken, async (req, res) => {
     res.status(500).json({ success: false, message: "Failed to fetch projects" });
   }
 });
-const Project = mongoose.model("Project", projectSchema);
-export default router;
+const Project = mongoose.models.Project || mongoose.model("Project", projectSchema);
+export default Project;
