@@ -9,27 +9,44 @@ const router = express.Router();
 router.post("/", verifyToken, async (req, res) => {
   try {
     const {
-  name,
-  email,
-  mobileNo,   // frontend sends this
-  websiteLink,
-  projectName,
-  websiteType,
-  budget,
-  projectDocuments,
-} = req.body;
+      name,
+      email,
+      mobileNo,
+      websiteLink,
+      projectName,
+      websiteType,
+      budget,
+      projectDocuments,
+    } = req.body;
 
-const newProject = new Project({
-  user: req.user.id,
-  name,
-  email,
-  mobile: mobileNo,  // map mobileNo to schema's mobile
-  websiteLink,
-  projectName,
-  websiteType,
-  budget,
-  projectDocuments: projectDocuments || [],
-});
+    const userId = req.user.id;
+
+    // Use companyName from req.body or fallback to user profile
+    const companyName = req.body.companyName || req.user.companyName;
+
+    if (!name || !email || !mobileNo || !projectName || !websiteType) {
+      return res.status(400).json({
+        success: false,
+        message: "Please fill all required fields.",
+      });
+    }
+
+    const newProject = new Project({
+      user: userId,
+      name,
+      email,
+      mobile: mobileNo,
+      companyName,  // now properly defined
+      websiteLink,
+      projectName,
+      websiteType,
+      budget,
+      projectDocuments: projectDocuments || [],
+    });
+
+    await newProject.save();
+    // ... send emails and respond
+
 
 
     const emailData = {
@@ -186,3 +203,4 @@ router.delete("/:id", verifyToken, async (req, res) => {
 });
 
 export default router;
+
