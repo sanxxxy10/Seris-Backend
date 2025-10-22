@@ -240,46 +240,45 @@ export const getUserEmailTemplate = (data) => `<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Order Confirmation</title>
-  <style>
-    @keyframes slideText {
-      
-      25%, 47% { transform: translateX(-100%); }
-      100% { transform: translateX(0); }
-    }
-    @media only screen and (max-width: 600px) {
-      .container { width: 100% !important; }
-      .content { padding: 20px !important; }
-      .header { padding: 30px 20px !important; }
-      .logo-img { width: 100px !important; }
-      .order-number { font-size: 18px !important; }
-      .text-slider { font-size: 14px !important; }
-    }
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Order Confirmation - Seris</title>
+  <!--[if mso]>
+  <style type="text/css">
+    body, table, td {font-family: Arial, sans-serif !important;}
   </style>
+  <![endif]-->
 </head>
-<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #f7f7f7;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f7f7f7; padding: 40px 20px;">
+<body style="margin: 0; padding: 0; background-color: #f5f5f5; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;">
+  
+  <!-- Preheader Text -->
+  <div style="display: none; max-height: 0; overflow: hidden; mso-hide: all;">
+    Order confirmed! Your submission #${data.serviceId} has been received. We'll review it within 24 hours.
+  </div>
+
+  <!-- Main Container -->
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #f5f5f5; padding: 20px 0;">
     <tr>
-      <td align="center">
-        <table class="container" width="600" cellpadding="0" cellspacing="0" style="max-width: 600px; background-color: #ffffff; border-radius: 0; overflow: hidden;">
+      <td align="center" style="padding: 0 10px;">
+        
+        <!-- Email Container -->
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: 600px; background-color: #ffffff; margin: 0 auto; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
           
-          <!-- Header -->
+          <!-- Header with Logo and Status -->
           <tr>
-            <td class="header" style="background-color: #ffffff; padding: 40px 40px 30px 40px; border-bottom: 1px solid #e0e0e0;">
-              <table width="100%" cellpadding="0" cellspacing="0">
+            <td style="background: linear-gradient(235deg, #10b981 0%, #197e5e 100%); padding: 30px 20px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
                 <tr>
                   <td width="30%" align="left" valign="middle">
-                    <img src="https://res.cloudinary.com/dvatkduf0/image/upload/v1761121684/seris_vw91k1.png" alt="Seris" class="logo-img" style="width: 50px; height: auto;">
+                    <img src="https://res.cloudinary.com/dvatkduf0/image/upload/v1761121684/seris_vw91k1.png" alt="Seris" width="60" style="display: block; border: 5; outline: none; height: auto;">
                   </td>
-                  <td width="50%" align="right" valign="middle">
-                    <div style="display: inline-block; overflow: hidden; height: 32px; line-height: 32px;">
-                      <div style="animation: slideText 4s infinite; display: inline-block;">
-                        <span style="color: #10b981; font-size: 18px; font-weight: 700; display: inline-block; white-space: nowrap; margin-right: 20px;">✓ CONFIRMED</span>
-                        <span style="color: #2563eb; font-size: 18px; font-weight: 700; display: inline-block; white-space: nowrap; margin-right: 20px;">🎯 RECEIVED</span>
-                        <span style="color: #f59e0b; font-size: 18px; font-weight: 700; display: inline-block; white-space: nowrap; margin-right: 20px;">⚡ PROCESSING</span>
-                        <span style="color: #8b5cf6; font-size: 18px; font-weight: 700; display: inline-block; white-space: nowrap; margin-right: 20px;">🚀 IN REVIEW</span>
-                      </div>
-                    </div>
+                  <td width="70%" align="right" valign="middle">
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="right" style="background-color: rgba(255,255,255,0.2); border-radius: 50px; backdrop-filter: blur(10px);">
+                      <tr>
+                        <td style="padding: 8px 20px;">
+                          <span style="color: #ffffff; font-size: 13px; font-weight: 600; letter-spacing: 0.5px;">✓ ORDER CONFIRMED</span>
+                        </td>
+                      </tr>
+                    </table>
                   </td>
                 </tr>
               </table>
@@ -288,176 +287,270 @@ export const getUserEmailTemplate = (data) => `<!DOCTYPE html>
 
           <!-- Success Message -->
           <tr>
-            <td style="padding: 40px 40px 30px 40px; text-align: center; background-color: #ffffff;">
-              <div style="width: 60px; height: 60px; background-color: #10b981; border-radius: 50%; margin: 0 auto 20px; display: inline-flex; align-items: center; justify-content: center;">
-                <span style="color: #ffffff; font-size: 30px; line-height: 1;">✓</span>
-              </div>
-              <h1 style="margin: 0 0 10px 0; color: #111111; font-size: 28px; font-weight: 600;">Thank You, ${data.name}!</h1>
-              <p style="margin: 0; color: #666666; font-size: 16px; line-height: 1.5;">Your project submission has been received successfully.</p>
+            <td style="padding: 40px 30px 30px; text-align: center; background-color: #ffffff;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td align="center" style="padding-bottom: 20px;">
+                    <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin: 0 auto;">
+                      <span style="color: #ffffff; font-size: 36px; line-height: 1;">✓</span>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <h1 style="margin: 0 0 12px 0; color: #1a1a1a; font-size: 28px; font-weight: 700; line-height: 1.3;">Thank You, ${data.name}!</h1>
+                    <p style="margin: 0; color: #666666; font-size: 16px; line-height: 1.6;">We've received your project submission and are excited to work with you.</p>
+                  </td>
+                </tr>
+              </table>
             </td>
           </tr>
-          
-          <!-- Order Details -->
+
+          <!-- Order Number Badge -->
           <tr>
-            <td class="content" style="padding: 0 40px 30px 40px; background-color: #ffffff;">
-              
-              <!-- Order Number Box -->
-              <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f0fdf4; border: 2px solid #10b981; margin-bottom: 30px;">
+            <td style="padding: 0 30px 30px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border-radius: 12px; border: 2px solid #10b981;">
                 <tr>
                   <td style="padding: 20px; text-align: center;">
-                    <p style="margin: 0 0 5px 0; color: #065f46; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Submission ID</p>
-                    <p class="order-number" style="margin: 0; color: #047857; font-size: 22px; font-weight: 700; font-family: 'Courier New', monospace;">${data.serviceId}</p>
+                    <p style="margin: 0 0 8px 0; color: #065f46; font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700;">Order Number</p>
+                    <p style="margin: 0; color: #047857; font-size: 24px; font-weight: 700; font-family: 'Courier New', monospace; letter-spacing: 1px;">#${data.serviceId}</p>
                   </td>
                 </tr>
               </table>
-
-              <!-- What's Next -->
-              <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 30px;">
-                <tr>
-                  <td style="padding: 0 0 15px 0;">
-                    <h2 style="margin: 0; color: #111111; font-size: 18px; font-weight: 600;">What Happens Next?</h2>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding: 0;">
-                    <table width="100%" cellpadding="0" cellspacing="0">
-                      <tr>
-                        <td style="padding: 15px 0;">
-                          <table cellpadding="0" cellspacing="0">
-                            <tr>
-                              <td style="width: 40px; vertical-align: top;">
-                                <div style="width: 32px; height: 32px; background-color: #dbeafe; border-radius: 50%; text-align: center; line-height: 32px;">
-                                  <span style="color: #1e40af; font-size: 16px; font-weight: 700;">1</span>
-                                </div>
-                              </td>
-                              <td style="vertical-align: top;">
-                                <p style="margin: 0 0 5px 0; color: #111111; font-size: 15px; font-weight: 600;">Review</p>
-                                <p style="margin: 0; color: #6b7280; font-size: 14px; line-height: 1.5;">Our team will review your project details within 24 hours.</p>
-                              </td>
-                            </tr>
-                          </table>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td style="padding: 15px 0;">
-                          <table cellpadding="0" cellspacing="0">
-                            <tr>
-                              <td style="width: 40px; vertical-align: top;">
-                                <div style="width: 32px; height: 32px; background-color: #dbeafe; border-radius: 50%; text-align: center; line-height: 32px;">
-                                  <span style="color: #1e40af; font-size: 16px; font-weight: 700;">2</span>
-                                </div>
-                              </td>
-                              <td style="vertical-align: top;">
-                                <p style="margin: 0 0 5px 0; color: #111111; font-size: 15px; font-weight: 600;">Contact</p>
-                                <p style="margin: 0; color: #6b7280; font-size: 14px; line-height: 1.5;">We'll reach out to discuss your requirements and timeline.</p>
-                              </td>
-                            </tr>
-                          </table>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td style="padding: 15px 0;">
-                          <table cellpadding="0" cellspacing="0">
-                            <tr>
-                              <td style="width: 40px; vertical-align: top;">
-                                <div style="width: 32px; height: 32px; background-color: #dbeafe; border-radius: 50%; text-align: center; line-height: 32px;">
-                                  <span style="color: #1e40af; font-size: 16px; font-weight: 700;">3</span>
-                                </div>
-                              </td>
-                              <td style="vertical-align: top;">
-                                <p style="margin: 0 0 5px 0; color: #111111; font-size: 15px; font-weight: 600;">Get Started</p>
-                                <p style="margin: 0; color: #6b7280; font-size: 14px; line-height: 1.5;">Once approved, we'll begin working on your project immediately.</p>
-                              </td>
-                            </tr>
-                          </table>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-              </table>
-
-              <!-- Project Summary -->
-              <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 30px;">
-                <tr>
-                  <td style="padding: 0 0 15px 0;">
-                    <h2 style="margin: 0; color: #111111; font-size: 18px; font-weight: 600;">Your Project Summary</h2>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding: 0;">
-                    <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f9fafb; border: 1px solid #e5e7eb;">
-                      <tr>
-                        <td style="padding: 20px;">
-                          <table width="100%" cellpadding="8" cellspacing="0">
-                            <tr>
-                              <td style="color: #6b7280; font-size: 14px; font-weight: 500; padding: 8px 0;">Project Name</td>
-                              <td style="color: #111111; font-size: 14px; font-weight: 600; padding: 8px 0; text-align: right;">${data.projectName}</td>
-                            </tr>
-                            <tr>
-                              <td style="color: #6b7280; font-size: 14px; font-weight: 500; padding: 8px 0;">Service</td>
-                              <td style="color: #111111; font-size: 14px; font-weight: 600; padding: 8px 0; text-align: right;">${data.serviceName}</td>
-                            </tr>
-                            <tr>
-                              <td style="color: #6b7280; font-size: 14px; font-weight: 500; padding: 8px 0;">Company</td>
-                              <td style="color: #111111; font-size: 14px; font-weight: 600; padding: 8px 0; text-align: right;">${data.companyName}</td>
-                            </tr>
-                            <tr style="border-top: 1px solid #e5e7eb;">
-                              <td style="color: #111111; font-size: 15px; font-weight: 700; padding: 12px 0 8px 0;">Total</td>
-                              <td style="color: #10b981; font-size: 18px; font-weight: 700; padding: 12px 0 8px 0; text-align: right;">${data.servicePrice}</td>
-                            </tr>
-                          </table>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-              </table>
-
-              <!-- Info Box -->
-              <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #eff6ff; border-left: 4px solid #2563eb; margin-bottom: 30px;">
-                <tr>
-                  <td style="padding: 20px;">
-                    <p style="margin: 0 0 5px 0; color: #1e40af; font-size: 14px; font-weight: 700;">📧 Keep This Email</p>
-                    <p style="margin: 0; color: #1e3a8a; font-size: 13px; line-height: 1.6;">Save this confirmation for your records. You can reference your Submission ID when contacting us.</p>
-                  </td>
-                </tr>
-              </table>
-
-              <!-- Contact Support -->
-              <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f9fafb; border: 1px solid #e5e7eb; margin-bottom: 30px;">
-                <tr>
-                  <td style="padding: 25px; text-align: center;">
-                    <p style="margin: 0 0 10px 0; color: #111111; font-size: 15px; font-weight: 600;">Have Questions?</p>
-                    <p style="margin: 0 0 15px 0; color: #6b7280; font-size: 14px; line-height: 1.5;">Our team is here to help you every step of the way.</p>
-                    <a href="mailto:serisdeveloper@gmail.com" style="display: inline-block; background-color: #111111; color: #ffffff; text-decoration: none; padding: 12px 30px; font-size: 14px; font-weight: 600; border-radius: 4px;">Contact Support</a>
-                  </td>
-                </tr>
-              </table>
-
             </td>
           </tr>
-          
+
+          <!-- Order Timeline -->
+          <tr>
+            <td style="padding: 0 30px 35px;">
+              <h2 style="margin: 0 0 20px 0; color: #1a1a1a; font-size: 20px; font-weight: 700;">What's Next?</h2>
+              
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                <!-- Step 1 -->
+                <tr>
+                  <td style="padding-bottom: 20px;">
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td width="50" valign="top" style="padding-right: 15px;">
+                          <div style="width: 44px; height: 44px; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                            <span style="color: #ffffff; font-size: 18px; font-weight: 700;">1</span>
+                          </div>
+                        </td>
+                        <td valign="top">
+                          <h3 style="margin: 0 0 6px 0; color: #1a1a1a; font-size: 16px; font-weight: 700;">Review & Verification</h3>
+                          <p style="margin: 0; color: #666666; font-size: 14px; line-height: 1.6;">Our team will review your submission within 24 hours and verify all project details.</p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                
+                <!-- Step 2 -->
+                <tr>
+                  <td style="padding-bottom: 20px;">
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td width="50" valign="top" style="padding-right: 15px;">
+                          <div style="width: 44px; height: 44px; background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                            <span style="color: #ffffff; font-size: 18px; font-weight: 700;">2</span>
+                          </div>
+                        </td>
+                        <td valign="top">
+                          <h3 style="margin: 0 0 6px 0; color: #1a1a1a; font-size: 16px; font-weight: 700;">Personal Consultation</h3>
+                          <p style="margin: 0; color: #666666; font-size: 14px; line-height: 1.6;">We'll contact you to discuss requirements, timeline, and answer any questions.</p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                
+                <!-- Step 3 -->
+                <tr>
+                  <td>
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td width="50" valign="top" style="padding-right: 15px;">
+                          <div style="width: 44px; height: 44px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                            <span style="color: #ffffff; font-size: 18px; font-weight: 700;">3</span>
+                          </div>
+                        </td>
+                        <td valign="top">
+                          <h3 style="margin: 0 0 6px 0; color: #1a1a1a; font-size: 16px; font-weight: 700;">Project Kickoff</h3>
+                          <p style="margin: 0; color: #666666; font-size: 14px; line-height: 1.6;">Once approved, we'll begin working on your project immediately with full dedication.</p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Order Summary -->
+          <tr>
+            <td style="padding: 0 30px 35px;">
+              <h2 style="margin: 0 0 20px 0; color: #1a1a1a; font-size: 20px; font-weight: 700;">Order Summary</h2>
+              
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #f9fafb; border-radius: 12px; border: 1px solid #e5e7eb; overflow: hidden;">
+                <tr>
+                  <td style="padding: 25px;">
+                    
+                    <!-- Project Details -->
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td style="padding-bottom: 15px; border-bottom: 1px solid #e5e7eb;">
+                          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                              <td style="padding: 8px 0;">
+                                <p style="margin: 0; color: #6b7280; font-size: 13px; font-weight: 500;">Project Name</p>
+                              </td>
+                              <td align="right" style="padding: 8px 0;">
+                                <p style="margin: 0; color: #1a1a1a; font-size: 14px; font-weight: 600;">${data.projectName}</p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding: 8px 0;">
+                                <p style="margin: 0; color: #6b7280; font-size: 13px; font-weight: 500;">Service Type</p>
+                              </td>
+                              <td align="right" style="padding: 8px 0;">
+                                <p style="margin: 0; color: #1a1a1a; font-size: 14px; font-weight: 600;">${data.serviceName}</p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding: 8px 0;">
+                                <p style="margin: 0; color: #6b7280; font-size: 13px; font-weight: 500;">Company</p>
+                              </td>
+                              <td align="right" style="padding: 8px 0;">
+                                <p style="margin: 0; color: #1a1a1a; font-size: 14px; font-weight: 600;">${data.companyName}</p>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      
+                      <!-- Total -->
+                      <tr>
+                        <td style="padding-top: 15px;">
+                          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                              <td>
+                                <p style="margin: 0; color: #1a1a1a; font-size: 16px; font-weight: 700;">Total Amount</p>
+                              </td>
+                              <td align="right">
+                                <p style="margin: 0; color: #10b981; font-size: 22px; font-weight: 700;">${data.servicePrice}</p>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                    
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Important Notice -->
+          <tr>
+            <td style="padding: 0 30px 35px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border-radius: 12px; border-left: 4px solid #3b82f6;">
+                <tr>
+                  <td style="padding: 20px;">
+                    <p style="margin: 0 0 8px 0; color: #1e40af; font-size: 15px; font-weight: 700;">📧 Important: Save This Email</p>
+                    <p style="margin: 0; color: #1e3a8a; font-size: 14px; line-height: 1.6;">Keep this confirmation for your records. Reference your order number when contacting our support team.</p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- CTA Section -->
+          <tr>
+            <td style="padding: 0 30px 40px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #f9fafb; border-radius: 12px; border: 1px solid #e5e7eb;">
+                <tr>
+                  <td style="padding: 35px 25px; text-align: center;">
+                    <h3 style="margin: 0 0 10px 0; color: #1a1a1a; font-size: 18px; font-weight: 700;">Need Assistance?</h3>
+                    <p style="margin: 0 0 20px 0; color: #666666; font-size: 14px; line-height: 1.6;">Our dedicated team is available to help you with any questions or concerns.</p>
+                    
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center">
+                      <tr>
+                        <td align="center" style="border-radius: 6px; background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);">
+                          <a href="mailto:serisdeveloper@gmail.com" style="display: inline-block; padding: 14px 32px; color: #ffffff; text-decoration: none; font-size: 15px; font-weight: 600; letter-spacing: 0.3px;">Contact Support</a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
           <!-- Footer -->
           <tr>
-            <td style="background-color: #f9fafb; padding: 40px; text-align: center; border-top: 1px solid #e5e7eb;">
-              <p style="margin: 0 0 15px 0; color: #6b7280; font-size: 14px; line-height: 1.8;">
-                <strong style="color: #111111;">Seris Development</strong><br>
-                Crafting Digital Excellence<br>
-                <a href="tel:+917395910172" style="color: #2563eb; text-decoration: none;">+91 73959 10172</a> | 
-                <a href="mailto:serisdeveloper@gmail.com" style="color: #2563eb; text-decoration: none;">serisdeveloper@gmail.com</a><br>
-                <a href="https://seris.site" style="color: #2563eb; text-decoration: none;">www.seris.site</a>
-              </p>
-              <p style="margin: 0; color: #9ca3af; font-size: 12px;">
-                © ${new Date().getFullYear()} Seris. All rights reserved.
-              </p>
+            <td style="background-color: #1a1a1a; padding: 35px 30px; text-align: center;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td align="center" style="padding-bottom: 20px;">
+                    <img src="https://res.cloudinary.com/dvatkduf0/image/upload/v1761121684/seris_vw91k1.png" alt="Seris" width="40" style="display: block; margin: 0 auto; border: 0; outline: none; height: auto; opacity: 0.8;">
+                  </td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <p style="margin: 0 0 15px 0; color: #ffffff; font-size: 16px; font-weight: 700; line-height: 1.4;">Seris Development</p>
+                    <p style="margin: 0 0 15px 0; color: #a0a0a0; font-size: 14px; line-height: 1.6;">
+                      Crafting Digital Excellence
+                    </p>
+                    <p style="margin: 0 0 20px 0; color: #a0a0a0; font-size: 13px; line-height: 1.8;">
+                      <a href="tel:+917395910172" style="color: #10b981; text-decoration: none;">+91 73959 10172</a><br>
+                      <a href="mailto:serisdeveloper@gmail.com" style="color: #10b981; text-decoration: none;">serisdeveloper@gmail.com</a><br>
+                      <a href="https://seris.site" style="color: #10b981; text-decoration: none;">www.seris.site</a>
+                    </p>
+                    
+                    <!-- Social Links (Optional) -->
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin: 0 auto 20px;">
+                      <tr>
+                        <td style="padding: 0 8px;">
+                          <a href="#" style="color: #a0a0a0; text-decoration: none; font-size: 20px;">📱</a>
+                        </td>
+                        <td style="padding: 0 8px;">
+                          <a href="#" style="color: #a0a0a0; text-decoration: none; font-size: 20px;">💼</a>
+                        </td>
+                        <td style="padding: 0 8px;">
+                          <a href="#" style="color: #a0a0a0; text-decoration: none; font-size: 20px;">🐦</a>
+                        </td>
+                      </tr>
+                    </table>
+                    
+                    <p style="margin: 0; color: #666666; font-size: 12px; line-height: 1.5;">
+                      © ${new Date().getFullYear()} Seris Development. All rights reserved.
+                    </p>
+                  </td>
+                </tr>
+              </table>
             </td>
           </tr>
           
         </table>
+        
+        <!-- Spacer -->
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: 600px; margin: 20px auto 0;">
+          <tr>
+            <td align="center" style="padding: 20px;">
+              <p style="margin: 0; color: #999999; font-size: 11px; line-height: 1.5;">
+                You're receiving this email because you submitted a project request at Seris.<br>
+                <a href="#" style="color: #999999; text-decoration: underline;">View in browser</a> | 
+                <a href="#" style="color: #999999; text-decoration: underline;">Unsubscribe</a>
+              </p>
+            </td>
+          </tr>
+        </table>
+        
       </td>
     </tr>
   </table>
+  
 </body>
 </html>`;
 
