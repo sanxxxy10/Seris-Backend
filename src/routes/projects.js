@@ -8,36 +8,25 @@ const router = express.Router();
 // POST - Create new project
 router.post("/", verifyToken, async (req, res) => {
   try {
-    const {
-      name,
-      email,
-      mobile,
-      companyName,
-      projectName,
-      websiteType,
-      projectDocuments,
-      serviceId,   // new
-      userId       // optional: can override req.user.id if needed
+    const { 
+      name, email, mobile, companyName, projectName, websiteType, 
+      projectDocuments, serviceId 
     } = req.body;
 
-    // required fields check
     if (!name || !email || !mobile || !projectName || !websiteType) {
-      return res.status(400).json({
-        success: false,
-        message: "Please fill all required fields.",
-      });
+      return res.status(400).json({ success: false, message: "Please fill all required fields." });
     }
 
     const newProject = new Project({
-      user: req.user.id || userId,   // prefer authenticated user, fallback to userId
+      user: req.user.id,
+      serviceId: serviceId || null,
       name,
       email,
       mobile,
       companyName,
       projectName,
       websiteType,
-      projectDocuments: projectDocuments || [],
-      serviceId: serviceId || null,  // save serviceId
+      projectDocuments: projectDocuments || []
     });
 
     await newProject.save();
