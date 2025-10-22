@@ -9,9 +9,15 @@ const router = express.Router();
 router.post("/", verifyToken, async (req, res) => {
   try {
     const {
-      name, companyName, mobile, email,
-      websiteLink, projectName, websiteType, budget,
-      projectDocuments // new field: array of { name, driveLink }
+      name,
+      companyName,
+      mobile,
+      email,
+      websiteLink,
+      projectName,
+      websiteType,
+      budget,
+      projectDocuments // array of { name, driveLink }
     } = req.body;
 
     const newProject = await Project.create({
@@ -24,36 +30,47 @@ router.post("/", verifyToken, async (req, res) => {
       projectName,
       websiteType,
       budget,
-      projectDocuments, // store documents
-      status: "pending"
+      projectDocuments,
+      status: "pending",
     });
 
-    const emailData = { name, companyName, mobile, email, websiteLink, projectName, websiteType, budget, projectDocuments };
+    const emailData = {
+      name,
+      companyName,
+      mobile,
+      email,
+      websiteLink,
+      projectName,
+      websiteType,
+      budget,
+      projectDocuments,
+    };
 
     const adminHtml = getAdminEmailTemplate(emailData);
     const userHtml = getUserEmailTemplate(emailData);
 
-    console.log("Admin Email Preview:", adminHtml.substring(0, 100));
-    console.log("User Email Preview:", userHtml.substring(0, 100));
+    console.log("📩 Admin Email Preview:", adminHtml.substring(0, 100));
+    console.log("📩 User Email Preview:", userHtml.substring(0, 100));
 
+    // Send admin email
     sendMail({
       to: process.env.ADMIN_EMAIL,
       subject: `🚀 New Project: ${projectName} - ${companyName}`,
-      html: adminHtml
-    }).catch(err => console.error("Admin email failed:", err));
+      html: adminHtml,
+    }).catch((err) => console.error("Admin email failed:", err));
 
+    // Send user confirmation email
     sendMail({
       to: email,
       subject: "✅ Project Submission Confirmation",
-      html: userHtml
-    }).catch(err => console.error("User email failed:", err));
+      html: userHtml,
+    }).catch((err) => console.error("User email failed:", err));
 
     res.status(201).json({
       success: true,
       message: "Project submitted successfully!",
-      project: newProject
+      project: newProject,
     });
-
   } catch (error) {
     console.error("❌ Error submitting project:", error);
     res.status(500).json({ success: false, message: "Server Error" });
@@ -65,11 +82,11 @@ router.get("/user", verifyToken, async (req, res) => {
   try {
     const projects = await Project.find({ user: req.user.id })
       .sort({ createdAt: -1 })
-      .populate('websiteType', 'name'); // populate website type name
+      .populate("websiteType", "name");
 
     res.json({
       success: true,
-      projects
+      projects,
     });
   } catch (error) {
     console.error("❌ Error fetching user projects:", error);
@@ -77,7 +94,7 @@ router.get("/user", verifyToken, async (req, res) => {
   }
 });
 
-// GET - Fetch all projects (Admin only)
+// ✅ GET - Fetch all projects (Admin only) with full contact details
 router.get("/", verifyToken, async (req, res) => {
   try {
     if (req.user.role !== "admin") {
@@ -85,13 +102,35 @@ router.get("/", verifyToken, async (req, res) => {
     }
 
     const projects = await Project.find()
-      .populate('user', 'name email')
-      .populate('websiteType', 'name')
+      .populate("user", "name email mobile") // ✅ include user contact details
+      .populate("websiteType", "name")
       .sort({ createdAt: -1 });
-    
+
+    // Format response with full contact info
+    const formattedProjects = projects.map((proj) => ({
+      id: proj._id,
+      name: proj.name,
+      companyName: proj.companyName,
+      mobile: proj.mobile,
+      email: proj.email,
+      websiteLink: proj.websiteLink,
+      projectName: proj.projectName,
+      websiteType: proj.websiteType?.name || "",
+      budget: proj.budget,
+      status: proj.status,
+      projectDocuments: proj.projectDocuments,
+      finalWebsiteLink: proj.finalWebsiteLink || "",
+      userDetails: {
+        name: proj.user?.name || proj.name,
+        email: proj.user?.email || proj.email,
+        mobile: proj.user?.mobile || proj.mobile,
+      },
+      createdAt: proj.createdAt,
+    }));
+
     res.json({
       success: true,
-      projects
+      projects: formattedProjects,
     });
   } catch (error) {
     console.error("❌ Error fetching all projects:", error);
@@ -106,8 +145,8 @@ router.put("/:id", verifyToken, async (req, res) => {
       return res.status(403).json({ success: false, message: "Access denied" });
     }
 
-    const { status, projectDocuments, finalWebsiteLink } = req.body; // allow updating documents and final link
-    
+    const { status, projectDocuments, finalWebsiteLink } = req.body;
+
     const project = await Project.findByIdAndUpdate(
       req.params.id,
       { status, projectDocuments, finalWebsiteLink },
@@ -121,7 +160,7 @@ router.put("/:id", verifyToken, async (req, res) => {
     res.json({
       success: true,
       message: "Project updated",
-      project
+      project,
     });
   } catch (error) {
     console.error("❌ Error updating project:", error);
@@ -140,7 +179,7 @@ router.delete("/:id", verifyToken, async (req, res) => {
 
     res.json({
       success: true,
-      message: "Project deleted"
+      message: "Project deleted",
     });
   } catch (error) {
     console.error("❌ Error deleting project:", error);

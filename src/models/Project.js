@@ -1,54 +1,115 @@
-import mongoose from "mongoose";
+import express from "express";
+import Project from "../models/Project.js";
+import { verifyToken } from "../middleware/auth.js";
+import { sendMail, getAdminEmailTemplate, getUserEmailTemplate } from "../utils/mail.js";
 
-const projectSchema = new mongoose.Schema(
-  {
-    user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+const router = express.Router();
 
-    // Client Info
-    name: { type: String, required: true },
-    companyName: { type: String },
-    mobile: {
-      type: String,
-      required: true,
-      validate: {
-        validator: (v) => /^\d{10}$/.test(v),
-        message: "Mobile number must be 10 digits",
-      },
-    },
-    email: {
-      type: String,
-      required: true,
-      lowercase: true,
-      validate: {
-        validator: (v) =>
-          /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v),
-        message: "Please enter a valid email",
-      },
-    },
+/**
+ * POST /api/projects
+ * Create a new project submission
+ */
+router.post("/", verifyToken, async (req, res) => {
+  try {
+    const {
+      name,
+      companyName,
+      mobile,
+      email,
+      websiteLink,
+      projectName,
+      websiteType,
+      budget,
+      projectDocuments,
+    } = req.body;
 
-    // Project Info
-    websiteLink: { type: String },
-    projectName: { type: String, required: true },
-    websiteType: { type: mongoose.Schema.Types.ObjectId, ref: "Service", required: true },
-    budget: { type: String },
+    const userId = req.user.id;
 
-    // Project Documents
-    projectDocuments: [
-      {
-        name: String,             // File name or description
-        driveLink: String,        // Google Drive shareable link
-      },
-    ],
+    // Basic validations
+    if (!name || !email || !mobile || !projectName || !websiteType) {
+      return res.status(400).json({
+        success: false,
+        message: "Please fill all required fields.",
+      });
+    }
 
-    // Status & Result
-    status: {
-      type: String,
-      enum: ["pending", "in-progress", "completed"],
-      default: "pending",
-    },
-    finalWebsiteLink: { type: String },
-  },
-  { timestamps: true }
-);
+    // Create new project
+    const newProject = new Project({
+      user: userId,
+      name,
+      companyName,
+      mobile,
+      email,
+      websiteLink,
+      projectName,
+      websiteType,
+      budget,
+      projectDocuments: projectDocuments || [],
+    });
 
-export default mongoose.model("Project", projectSchema);
+    await newProject.save();
+
+    // Notify admin via email
+    const adminEmailHtml = getAdminEmailTemplate({
+      name,
+      email,
+      mobile,
+      companyName,
+      projectName,
+      websiteLink,
+      budget,
+      projectDocuments,
+    });
+
+    await sendMail({
+      to: process.env.ADMIN_EMAIL,
+      subject: `🆕 New Project Submitted: ${projectName}`,
+      html: adminEmailHtml,
+    });
+
+    // Notify user
+    const userEmailHtml = getUserEmailTemplate({
+      name,
+      projectName,
+      message:
+        "Your project has been successfully submitted. Our team will contact you soon.",
+    });
+
+    await sendMail({
+      to: email,
+      subject: "✅ Project Submission Received",
+      html: userEmailHtml,
+    });
+
+    res.status(201).json({
+      success: true,
+      message: "Project submitted successfully",
+      project: newProject,
+    });
+  } catch (error) {
+    console.error("Error creating project:", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+      error: error.message,
+    });
+  }
+});
+
+/**
+ * GET /api/projects
+ * Fetch all projects for the logged-in user
+ */
+router.get("/", verifyToken, async (req, res) => {
+  try {
+    const projects = await Project.find({ user: req.user.id })
+      .populate("websiteType", "name price")
+      .sort({ createdAt: -1 });
+    res.status(200).json({ success: true, projects });
+  } catch (error) {
+    console.error("Error fetching projects:", error);
+    res.status(500).json({ success: false, message: "Failed to fetch projects" });
+  }
+});
+
+export default router;
