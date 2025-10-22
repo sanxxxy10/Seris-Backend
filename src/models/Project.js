@@ -1,14 +1,10 @@
 import express from "express";
-import Project from "../models/Project.js";
+import Project from "../models/Project.js"; // already declared safely there
 import { verifyToken } from "../middleware/auth.js";
 import { sendMail, getAdminEmailTemplate, getUserEmailTemplate } from "../utils/mail.js";
 
 const router = express.Router();
 
-/**
- * POST /api/projects
- * Create a new project submission
- */
 router.post("/", verifyToken, async (req, res) => {
   try {
     const {
@@ -25,7 +21,6 @@ router.post("/", verifyToken, async (req, res) => {
 
     const userId = req.user.id;
 
-    // Basic validations
     if (!name || !email || !mobile || !projectName || !websiteType) {
       return res.status(400).json({
         success: false,
@@ -33,7 +28,6 @@ router.post("/", verifyToken, async (req, res) => {
       });
     }
 
-    // Create new project
     const newProject = new Project({
       user: userId,
       name,
@@ -49,7 +43,6 @@ router.post("/", verifyToken, async (req, res) => {
 
     await newProject.save();
 
-    // Notify admin via email
     const adminEmailHtml = getAdminEmailTemplate({
       name,
       email,
@@ -67,7 +60,6 @@ router.post("/", verifyToken, async (req, res) => {
       html: adminEmailHtml,
     });
 
-    // Notify user
     const userEmailHtml = getUserEmailTemplate({
       name,
       projectName,
@@ -96,10 +88,6 @@ router.post("/", verifyToken, async (req, res) => {
   }
 });
 
-/**
- * GET /api/projects
- * Fetch all projects for the logged-in user
- */
 router.get("/", verifyToken, async (req, res) => {
   try {
     const projects = await Project.find({ user: req.user.id })
@@ -111,5 +99,5 @@ router.get("/", verifyToken, async (req, res) => {
     res.status(500).json({ success: false, message: "Failed to fetch projects" });
   }
 });
-const Project = mongoose.models.Project || mongoose.model("Project", projectSchema);
-export default Project;
+
+export default router;
