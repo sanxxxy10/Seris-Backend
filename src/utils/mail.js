@@ -241,7 +241,7 @@ export const getAdminEmailTemplate = (data) => `
                               </td>
                               <td align="right" style="padding: 8px 0;">
                                 <p style="margin: 0; color: #2563eb; font-size: 14px; font-weight: 600;">
-                                  <a href="tel:${data.phone}" style="color: #2563eb; text-decoration: none;">${data.phone}</a>
+                                  <a href="tel:${data.mobile}" style="color: #2563eb; text-decoration: none;">${data.mobile}</a>
                                 </p>
                               </td>
                             </tr>
