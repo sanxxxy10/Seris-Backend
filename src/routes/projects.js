@@ -11,20 +11,17 @@ router.post("/", verifyToken, async (req, res) => {
     const {
       name,
       email,
-      mobileNo,
-      websiteLink,
+      mobile,
+      companyName,
       projectName,
       websiteType,
-      budget,
       projectDocuments,
+      serviceId,   // new
+      userId       // optional: can override req.user.id if needed
     } = req.body;
 
-    const userId = req.user.id;
-
-    // Use companyName from req.body or fallback to user profile
-    const companyName = req.body.companyName || req.user.companyName;
-
-    if (!name || !email || !mobileNo || !projectName || !websiteType) {
+    // required fields check
+    if (!name || !email || !mobile || !projectName || !websiteType) {
       return res.status(400).json({
         success: false,
         message: "Please fill all required fields.",
@@ -32,22 +29,18 @@ router.post("/", verifyToken, async (req, res) => {
     }
 
     const newProject = new Project({
-      user: userId,
+      user: req.user.id || userId,   // prefer authenticated user, fallback to userId
       name,
       email,
-      mobile: mobileNo,
-      companyName,  // now properly defined
-      websiteLink,
+      mobile,
+      companyName,
       projectName,
       websiteType,
-      budget,
       projectDocuments: projectDocuments || [],
+      serviceId: serviceId || null,  // save serviceId
     });
 
     await newProject.save();
-    // ... send emails and respond
-
-
 
     const emailData = {
       name,
@@ -203,4 +196,3 @@ router.delete("/:id", verifyToken, async (req, res) => {
 });
 
 export default router;
-
