@@ -265,11 +265,11 @@ export const getUserEmailTemplate = (data) => `<!DOCTYPE html>
           
           <!-- Header with Logo and Status -->
           <tr>
-            <td style="background: linear-gradient(235deg, #10b981 0%, #197e5e 100%); padding: 30px 20px;">
+            <td style="background: linear-gradient(135deg,  #059669 0%, #059669 100%); padding: 30px 20px;">
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
                 <tr>
                   <td width="30%" align="left" valign="middle">
-                    <img src="https://res.cloudinary.com/dvatkduf0/image/upload/v1761121684/seris_vw91k1.png" alt="Seris" width="60" style="display: block; border: 5; outline: none; height: auto;">
+                    <img src="https://res.cloudinary.com/dvatkduf0/image/upload/v1761121684/seris_vw91k1.png" alt="Seris" width="60" style="display: block; border: 0; outline: none; height: auto;">
                   </td>
                   <td width="70%" align="right" valign="middle">
                     <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="right" style="background-color: rgba(255,255,255,0.2); border-radius: 50px; backdrop-filter: blur(10px);">
@@ -291,9 +291,13 @@ export const getUserEmailTemplate = (data) => `<!DOCTYPE html>
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
                 <tr>
                   <td align="center" style="padding-bottom: 20px;">
-                    <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin: 0 auto;">
-                      <span style="color: #ffffff; font-size: 36px; line-height: 1;">✓</span>
-                    </div>
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center">
+                      <tr>
+                        <td width="70" height="70" align="center" valign="middle" style="width: 70px; height: 70px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 50%; font-size: 36px; color: #ffffff; line-height: 70px; text-align: center;">
+                          ✓
+                        </td>
+                      </tr>
+                    </table>
                   </td>
                 </tr>
                 <tr>
@@ -332,9 +336,13 @@ export const getUserEmailTemplate = (data) => `<!DOCTYPE html>
                     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
                       <tr>
                         <td width="50" valign="top" style="padding-right: 15px;">
-                          <div style="width: 44px; height: 44px; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                            <span style="color: #ffffff; font-size: 18px; font-weight: 700;">1</span>
-                          </div>
+                          <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                              <td width="44" height="44" align="center" valign="middle" style="width: 44px; height: 44px; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); border-radius: 50%; font-size: 18px; color: #ffffff; font-weight: 700; line-height: 44px; text-align: center;">
+                                1
+                              </td>
+                            </tr>
+                          </table>
                         </td>
                         <td valign="top">
                           <h3 style="margin: 0 0 6px 0; color: #1a1a1a; font-size: 16px; font-weight: 700;">Review & Verification</h3>
@@ -351,9 +359,13 @@ export const getUserEmailTemplate = (data) => `<!DOCTYPE html>
                     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
                       <tr>
                         <td width="50" valign="top" style="padding-right: 15px;">
-                          <div style="width: 44px; height: 44px; background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                            <span style="color: #ffffff; font-size: 18px; font-weight: 700;">2</span>
-                          </div>
+                          <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                              <td width="44" height="44" align="center" valign="middle" style="width: 44px; height: 44px; background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); border-radius: 50%; font-size: 18px; color: #ffffff; font-weight: 700; line-height: 44px; text-align: center;">
+                                2
+                              </td>
+                            </tr>
+                          </table>
                         </td>
                         <td valign="top">
                           <h3 style="margin: 0 0 6px 0; color: #1a1a1a; font-size: 16px; font-weight: 700;">Personal Consultation</h3>
@@ -370,9 +382,13 @@ export const getUserEmailTemplate = (data) => `<!DOCTYPE html>
                     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
                       <tr>
                         <td width="50" valign="top" style="padding-right: 15px;">
-                          <div style="width: 44px; height: 44px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                            <span style="color: #ffffff; font-size: 18px; font-weight: 700;">3</span>
-                          </div>
+                          <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                              <td width="44" height="44" align="center" valign="middle" style="width: 44px; height: 44px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 50%; font-size: 18px; color: #ffffff; font-weight: 700; line-height: 44px; text-align: center;">
+                                3
+                              </td>
+                            </tr>
+                          </table>
                         </td>
                         <td valign="top">
                           <h3 style="margin: 0 0 6px 0; color: #1a1a1a; font-size: 16px; font-weight: 700;">Project Kickoff</h3>
