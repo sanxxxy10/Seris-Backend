@@ -9,40 +9,46 @@ const router = express.Router();
 router.post("/", verifyToken, async (req, res) => {
   try {
     const { 
-      name, email, mobile, companyName, projectName, websiteType, 
-      projectDocuments, serviceId 
+      name, email, mobile, companyName, projectName, 
+      projectDocuments, serviceId, serviceName, servicePrice 
     } = req.body;
 
-    if (!name || !email || !mobile || !projectName || !websiteType) {
+    // Validate required fields
+    if (!name || !email || !mobile || !projectName || !serviceId || !serviceName) {
       return res.status(400).json({ success: false, message: "Please fill all required fields." });
     }
 
+    // Create new project
     const newProject = new Project({
       user: req.user.id,
-      serviceId: serviceId || null,
+      serviceId,
+      serviceName,
+      servicePrice: servicePrice || 0,
       name,
       email,
       mobile,
       companyName,
       projectName,
-      websiteType,
       projectDocuments: projectDocuments || []
     });
 
     await newProject.save();
 
+    // Email data
     const emailData = {
       name,
       companyName,
       mobile,
       email,
-      websiteLink,
       projectName,
-      websiteType,
-      budget,
+      serviceId,
+      serviceName,
+      servicePrice,
       projectDocuments,
     };
 
+    // TODO: send email using emailData
+ 
     const adminHtml = getAdminEmailTemplate(emailData);
     const userHtml = getUserEmailTemplate(emailData);
 
