@@ -33,203 +33,388 @@ export const getAdminEmailTemplate = (data) => `
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>New Project Submission</title>
-  <style>
-    @media only screen and (max-width: 600px) {
-      .container { width: 100% !important; }
-      .content { padding: 20px !important; }
-      .header { padding: 30px 20px !important; }
-      .logo-img { width: 100px !important; }
-      .order-number { font-size: 18px !important; }
-    }
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>New Order Received - Seris Admin</title>
+  <!--[if mso]>
+  <style type="text/css">
+    body, table, td {font-family: Arial, sans-serif !important;}
   </style>
+  <![endif]-->
 </head>
-<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #f7f7f7;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f7f7f7; padding: 40px 20px;">
+<body style="margin: 0; padding: 0; background-color: #f5f5f5; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;">
+  
+  <!-- Preheader Text -->
+  <div style="display: none; max-height: 0; overflow: hidden; mso-hide: all;">
+    🚨 New Order Alert! ${data.name} from ${data.companyName} just submitted a project. Order #${data.serviceId}
+  </div>
+
+  <!-- Main Container -->
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #f5f5f5; padding: 20px 0;">
     <tr>
-      <td align="center">
-        <table class="container" width="600" cellpadding="0" cellspacing="0" style="max-width: 600px; background-color: #ffffff; border-radius: 0; overflow: hidden;">
+      <td align="center" style="padding: 0 10px;">
+        
+        <!-- Email Container -->
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: 600px; background-color: #ffffff; margin: 0 auto; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
           
-          <!-- Header -->
+          <!-- Header with Logo and Alert Status -->
           <tr>
-            <td class="header" style="background-color: #ffffff; padding: 40px 40px 30px 40px; border-bottom: 1px solid #e0e0e0;">
-              <table width="100%" cellpadding="0" cellspacing="0">
+            <td style="background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); padding: 30px 20px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
                 <tr>
-                  <td width="50%" align="left" valign="middle">
-                    <img src="https://res.cloudinary.com/dvatkduf0/image/upload/v1761121684/seris_vw91k1.png" alt="Seris" class="logo-img" style="width: 120px; height: auto;">
+                  <td width="30%" align="left" valign="middle">
+                    <img src="https://res.cloudinary.com/dvatkduf0/image/upload/v1761121684/seris_vw91k1.png" alt="Seris" width="60" style="display: block; border: 0; outline: none; height: auto;">
                   </td>
-                  <td width="50%" align="right" valign="middle">
-                    <div style="display: inline-block; overflow: hidden; height: 32px; line-height: 32px;">
-                      <div style="animation: slideText 8s infinite; display: inline-block;">
-                        <span style="color: #111111; font-size: 18px; font-weight: 700; display: inline-block; white-space: nowrap; margin-right: 20px;">🎉 NEW ORDER</span>
-                        <span style="color: #10b981; font-size: 18px; font-weight: 700; display: inline-block; white-space: nowrap; margin-right: 20px;">✨ FRESH PROJECT</span>
-                        <span style="color: #2563eb; font-size: 18px; font-weight: 700; display: inline-block; white-space: nowrap; margin-right: 20px;">🚀 OPPORTUNITY</span>
-                        <span style="color: #f59e0b; font-size: 18px; font-weight: 700; display: inline-block; white-space: nowrap; margin-right: 20px;">💼 NEW CLIENT</span>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-
-          <!-- Success Message -->
-          <tr>
-            <td style="padding: 40px 40px 30px 40px; text-align: center; background-color: #ffffff;">
-              <div style="width: 60px; height: 60px; background-color: #10b981; border-radius: 50%; margin: 0 auto 20px; display: inline-flex; align-items: center; justify-content: center;">
-                <span style="color: #ffffff; font-size: 30px; line-height: 1;">✓</span>
-              </div>
-              <h1 style="margin: 0 0 10px 0; color: #111111; font-size: 28px; font-weight: 600;">New Project Received</h1>
-              <p style="margin: 0; color: #666666; font-size: 16px; line-height: 1.5;">A new project submission has been received and is ready for your review.</p>
-            </td>
-          </tr>
-          
-          <!-- Project Details -->
-          <tr>
-            <td class="content" style="padding: 0 40px 30px 40px; background-color: #ffffff;">
-              
-              <!-- Order Number Box -->
-              <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f9fafb; border: 1px solid #e5e7eb; margin-bottom: 30px;">
-                <tr>
-                  <td style="padding: 20px; text-align: center;">
-                    <p style="margin: 0 0 5px 0; color: #6b7280; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Project Name</p>
-                    <p class="order-number" style="margin: 0; color: #111111; font-size: 22px; font-weight: 700;">${data.projectName}</p>
-                  </td>
-                </tr>
-              </table>
-
-              <!-- Service Info -->
-              <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 30px;">
-                <tr>
-                  <td style="padding: 0 0 20px 0; border-bottom: 1px solid #e5e7eb;">
-                    <table width="100%" cellpadding="0" cellspacing="0">
+                  <td width="70%" align="right" valign="middle">
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="right" style="background-color: rgba(255,255,255,0.2); border-radius: 50px; backdrop-filter: blur(10px);">
                       <tr>
-                        <td style="padding: 15px 0;">
-                          <p style="margin: 0 0 5px 0; color: #6b7280; font-size: 13px; font-weight: 500;">Service</p>
-                          <p style="margin: 0; color: #111111; font-size: 16px; font-weight: 600;">${data.serviceName}</p>
+                        <td style="padding: 8px 20px;">
+                          <span style="color: #ffffff; font-size: 13px; font-weight: 600; letter-spacing: 0.5px;">🚨 NEW ORDER</span>
                         </td>
-                        <td align="right" style="padding: 15px 0;">
-                          <p style="margin: 0 0 5px 0; color: #6b7280; font-size: 13px; font-weight: 500; text-align: right;">Price</p>
-                          <p style="margin: 0; color: #111111; font-size: 18px; font-weight: 700; text-align: right;">${data.servicePrice}</p>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Alert Message -->
+          <tr>
+            <td style="padding: 40px 30px 30px; text-align: center; background-color: #ffffff;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td align="center" style="padding-bottom: 20px;">
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center">
+                      <tr>
+                        <td width="70" height="70" align="center" valign="middle" style="width: 70px; height: 70px; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); border-radius: 50%; font-size: 36px; color: #ffffff; line-height: 70px; text-align: center;">
+                          🔔
                         </td>
                       </tr>
                     </table>
                   </td>
                 </tr>
                 <tr>
-                  <td style="padding: 15px 0 0 0;">
-                    <p style="margin: 0 0 5px 0; color: #6b7280; font-size: 13px; font-weight: 500;">Service ID</p>
-                    <p style="margin: 0; color: #111111; font-size: 14px; font-family: 'Courier New', monospace; font-weight: 600;">${data.serviceId}</p>
+                  <td align="center">
+                    <h1 style="margin: 0 0 12px 0; color: #1a1a1a; font-size: 28px; font-weight: 700; line-height: 1.3;">New Project Submission!</h1>
+                    <p style="margin: 0; color: #666666; font-size: 16px; line-height: 1.6;">A new order has been placed. Review and contact the client within 24 hours.</p>
                   </td>
                 </tr>
               </table>
+            </td>
+          </tr>
 
-              <!-- Client Details -->
-              <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 30px;">
+          <!-- Order Number Badge -->
+          <tr>
+            <td style="padding: 0 30px 30px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-radius: 12px; border: 2px solid #f59e0b;">
                 <tr>
-                  <td style="padding: 0 0 15px 0;">
-                    <h2 style="margin: 0; color: #111111; font-size: 18px; font-weight: 600;">Client Information</h2>
+                  <td style="padding: 20px; text-align: center;">
+                    <p style="margin: 0 0 8px 0; color: #92400e; font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700;">Order ID</p>
+                    <p style="margin: 0; color: #b45309; font-size: 24px; font-weight: 700; font-family: 'Courier New', monospace; letter-spacing: 1px;">#${data.serviceId}</p>
                   </td>
                 </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Quick Actions -->
+          <tr>
+            <td style="padding: 0 30px 35px;">
+              <h2 style="margin: 0 0 20px 0; color: #1a1a1a; font-size: 20px; font-weight: 700;">Action Required</h2>
+              
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                <!-- Action 1 -->
                 <tr>
-                  <td style="padding: 0;">
-                    <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f9fafb; border: 1px solid #e5e7eb;">
+                  <td style="padding-bottom: 15px;">
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
                       <tr>
-                        <td style="padding: 20px;">
-                          <table width="100%" cellpadding="8" cellspacing="0">
+                        <td width="50" valign="top" style="padding-right: 15px;">
+                          <table role="presentation" cellpadding="0" cellspacing="0" border="0">
                             <tr>
-                              <td width="40%" style="color: #6b7280; font-size: 14px; font-weight: 500; padding: 8px 0;">Name</td>
-                              <td style="color: #111111; font-size: 14px; font-weight: 600; padding: 8px 0;">${data.name}</td>
+                              <td width="44" height="44" align="center" valign="middle" style="width: 44px; height: 44px; background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); border-radius: 50%; font-size: 18px; color: #ffffff; font-weight: 700; line-height: 44px; text-align: center;">
+                                1
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                        <td valign="top">
+                          <h3 style="margin: 0 0 6px 0; color: #1a1a1a; font-size: 16px; font-weight: 700;">Review Project Details</h3>
+                          <p style="margin: 0; color: #666666; font-size: 14px; line-height: 1.6;">Check all submitted information and requirements carefully.</p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                
+                <!-- Action 2 -->
+                <tr>
+                  <td style="padding-bottom: 15px;">
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td width="50" valign="top" style="padding-right: 15px;">
+                          <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                              <td width="44" height="44" align="center" valign="middle" style="width: 44px; height: 44px; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); border-radius: 50%; font-size: 18px; color: #ffffff; font-weight: 700; line-height: 44px; text-align: center;">
+                                2
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                        <td valign="top">
+                          <h3 style="margin: 0 0 6px 0; color: #1a1a1a; font-size: 16px; font-weight: 700;">Contact Client</h3>
+                          <p style="margin: 0; color: #666666; font-size: 14px; line-height: 1.6;">Reach out to discuss requirements, timeline, and hosting preferences.</p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                
+                <!-- Action 3 -->
+                <tr>
+                  <td>
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td width="50" valign="top" style="padding-right: 15px;">
+                          <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                              <td width="44" height="44" align="center" valign="middle" style="width: 44px; height: 44px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 50%; font-size: 18px; color: #ffffff; font-weight: 700; line-height: 44px; text-align: center;">
+                                3
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                        <td valign="top">
+                          <h3 style="margin: 0 0 6px 0; color: #1a1a1a; font-size: 16px; font-weight: 700;">Confirm & Start</h3>
+                          <p style="margin: 0; color: #666666; font-size: 14px; line-height: 1.6;">Send project confirmation and begin work once details are finalized.</p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Client Information -->
+          <tr>
+            <td style="padding: 0 30px 35px;">
+              <h2 style="margin: 0 0 20px 0; color: #1a1a1a; font-size: 20px; font-weight: 700;">Client Information</h2>
+              
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #f9fafb; border-radius: 12px; border: 1px solid #e5e7eb; overflow: hidden;">
+                <tr>
+                  <td style="padding: 25px;">
+                    
+                    <!-- Client Details -->
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td style="padding-bottom: 15px;">
+                          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                              <td style="padding: 8px 0;">
+                                <p style="margin: 0; color: #6b7280; font-size: 13px; font-weight: 500;">Client Name</p>
+                              </td>
+                              <td align="right" style="padding: 8px 0;">
+                                <p style="margin: 0; color: #1a1a1a; font-size: 14px; font-weight: 600;">${data.name}</p>
+                              </td>
                             </tr>
                             <tr>
-                              <td style="color: #6b7280; font-size: 14px; font-weight: 500; padding: 8px 0;">Company</td>
-                              <td style="color: #111111; font-size: 14px; font-weight: 600; padding: 8px 0;">${data.companyName}</td>
+                              <td style="padding: 8px 0;">
+                                <p style="margin: 0; color: #6b7280; font-size: 13px; font-weight: 500;">Company</p>
+                              </td>
+                              <td align="right" style="padding: 8px 0;">
+                                <p style="margin: 0; color: #1a1a1a; font-size: 14px; font-weight: 600;">${data.companyName}</p>
+                              </td>
                             </tr>
                             <tr>
-                              <td style="color: #6b7280; font-size: 14px; font-weight: 500; padding: 8px 0;">Email</td>
-                              <td style="padding: 8px 0;"><a href="mailto:${data.email}" style="color: #2563eb; font-size: 14px; text-decoration: none; font-weight: 500;">${data.email}</a></td>
+                              <td style="padding: 8px 0;">
+                                <p style="margin: 0; color: #6b7280; font-size: 13px; font-weight: 500;">Email</p>
+                              </td>
+                              <td align="right" style="padding: 8px 0;">
+                                <p style="margin: 0; color: #2563eb; font-size: 14px; font-weight: 600;">
+                                  <a href="mailto:${data.email}" style="color: #2563eb; text-decoration: none;">${data.email}</a>
+                                </p>
+                              </td>
                             </tr>
                             <tr>
-                              <td style="color: #6b7280; font-size: 14px; font-weight: 500; padding: 8px 0;">Phone</td>
-                              <td style="padding: 8px 0;"><a href="tel:${data.mobile}" style="color: #2563eb; font-size: 14px; text-decoration: none; font-weight: 500;">${data.mobile}</a></td>
+                              <td style="padding: 8px 0;">
+                                <p style="margin: 0; color: #6b7280; font-size: 13px; font-weight: 500;">Phone</p>
+                              </td>
+                              <td align="right" style="padding: 8px 0;">
+                                <p style="margin: 0; color: #2563eb; font-size: 14px; font-weight: 600;">
+                                  <a href="tel:${data.phone}" style="color: #2563eb; text-decoration: none;">${data.phone}</a>
+                                </p>
+                              </td>
                             </tr>
                           </table>
                         </td>
                       </tr>
                     </table>
+                    
                   </td>
                 </tr>
               </table>
+            </td>
+          </tr>
 
-              ${data.projectDocuments && data.projectDocuments.length > 0 ? `
-              <!-- Documents -->
-              <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 30px;">
+          <!-- Project Details -->
+          <tr>
+            <td style="padding: 0 30px 35px;">
+              <h2 style="margin: 0 0 20px 0; color: #1a1a1a; font-size: 20px; font-weight: 700;">Project Details</h2>
+              
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #f9fafb; border-radius: 12px; border: 1px solid #e5e7eb; overflow: hidden;">
                 <tr>
-                  <td style="padding: 0 0 15px 0;">
-                    <h2 style="margin: 0; color: #111111; font-size: 18px; font-weight: 600;">Attached Documents</h2>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding: 0;">
-                    <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f9fafb; border: 1px solid #e5e7eb;">
+                  <td style="padding: 25px;">
+                    
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
                       <tr>
-                        <td style="padding: 15px 20px;">
-                          ${data.projectDocuments.map(doc => `
-                            <div style="padding: 10px 0; border-bottom: 1px solid #e5e7eb;">
-                              <span style="color: #6b7280; font-size: 14px;">📎</span>
-                              <span style="color: #111111; font-size: 14px; font-weight: 500; margin-left: 8px;">${doc}</span>
-                            </div>
-                          `).join('')}
+                        <td style="padding-bottom: 15px; border-bottom: 1px solid #e5e7eb;">
+                          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                              <td style="padding: 8px 0;">
+                                <p style="margin: 0; color: #6b7280; font-size: 13px; font-weight: 500;">Project Name</p>
+                              </td>
+                              <td align="right" style="padding: 8px 0;">
+                                <p style="margin: 0; color: #1a1a1a; font-size: 14px; font-weight: 600;">${data.projectName}</p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding: 8px 0;">
+                                <p style="margin: 0; color: #6b7280; font-size: 13px; font-weight: 500;">Service Type</p>
+                              </td>
+                              <td align="right" style="padding: 8px 0;">
+                                <p style="margin: 0; color: #1a1a1a; font-size: 14px; font-weight: 600;">${data.serviceName}</p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding: 8px 0;">
+                                <p style="margin: 0; color: #6b7280; font-size: 13px; font-weight: 500;">Quoted Price</p>
+                              </td>
+                              <td align="right" style="padding: 8px 0;">
+                                <p style="margin: 0; color: #1a1a1a; font-size: 14px; font-weight: 600;">₹${data.servicePrice}</p>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      
+                      <!-- Project Value -->
+                      <tr>
+                        <td style="padding-top: 15px;">
+                          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                              <td>
+                                <p style="margin: 0; color: #1a1a1a; font-size: 16px; font-weight: 700;">Project Value</p>
+                              </td>
+                              <td align="right">
+                                <p style="margin: 0; color: #10b981; font-size: 22px; font-weight: 700;">₹${data.servicePrice}</p>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      
+                      <!-- Hosting Note -->
+                      <tr>
+                        <td style="padding-top: 15px;">
+                          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #fef3c7; border-radius: 8px; border-left: 3px solid #f59e0b;">
+                            <tr>
+                              <td style="padding: 12px 15px;">
+                                <p style="margin: 0 0 6px 0; color: #92400e; font-size: 13px; font-weight: 700;">⚠️ Discuss Hosting Options</p>
+                                <p style="margin: 0; color: #78350f; font-size: 12px; line-height: 1.5;">
+                                  Confirm if client wants free hosting (subdomain under seris.site) or custom domain with additional charges.
+                                </p>
+                              </td>
+                            </tr>
+                          </table>
                         </td>
                       </tr>
                     </table>
+                    
                   </td>
                 </tr>
               </table>
-              ` : ''}
-
-              <!-- Action Box -->
-              <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #fef3c7; border-left: 4px solid #f59e0b; margin-bottom: 30px;">
-                <tr>
-                  <td style="padding: 20px;">
-                    <p style="margin: 0 0 5px 0; color: #92400e; font-size: 14px; font-weight: 700;">Next Steps</p>
-                    <p style="margin: 0; color: #78350f; font-size: 13px; line-height: 1.6;">Review the project details and contact the client within 24 hours for the best response rate.</p>
-                  </td>
-                </tr>
-              </table>
-
-              <!-- Button -->
-              <table width="100%" cellpadding="0" cellspacing="0">
-                <tr>
-                  <td align="center" style="padding: 10px 0;">
-                    <a href="mailto:${data.email}" style="display: inline-block; background-color: #111111; color: #ffffff; text-decoration: none; padding: 14px 40px; font-size: 14px; font-weight: 600; border-radius: 4px;">Contact Client</a>
-                  </td>
-                </tr>
-              </table>
-
             </td>
           </tr>
-          
+
+          <!-- Additional Details (if any) -->
+          <tr>
+            <td style="padding: 0 30px 35px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); border-radius: 12px; border-left: 4px solid #3b82f6;">
+                <tr>
+                  <td style="padding: 20px;">
+                    <p style="margin: 0 0 8px 0; color: #1e40af; font-size: 15px; font-weight: 700;">📋 Additional Notes</p>
+                    <p style="margin: 0; color: #1e3a8a; font-size: 14px; line-height: 1.6;">
+                      ${data.additionalNotes || 'No additional notes provided by the client.'}
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Quick Contact CTA -->
+          <tr>
+            <td style="padding: 0 30px 40px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #1a1a1a; border-radius: 12px;">
+                <tr>
+                  <td style="padding: 35px 25px; text-align: center;">
+                    <h3 style="margin: 0 0 15px 0; color: #ffffff; font-size: 18px; font-weight: 700;">Ready to Contact Client?</h3>
+                    
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin-bottom: 20px;">
+                      <tr>
+                        <td style="padding: 0 8px;">
+                          <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                              <td align="center" style="border-radius: 6px; background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                                <a href="mailto:${data.email}" style="display: inline-block; padding: 14px 28px; color: #ffffff; text-decoration: none; font-size: 15px; font-weight: 600; letter-spacing: 0.3px;">📧 Email Client</a>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                        <td style="padding: 0 8px;">
+                          <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                              <td align="center" style="border-radius: 6px; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);">
+                                <a href="tel:${data.phone}" style="display: inline-block; padding: 14px 28px; color: #ffffff; text-decoration: none; font-size: 15px; font-weight: 600; letter-spacing: 0.3px;">📞 Call Client</a>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                    
+                    <p style="margin: 0; color: #a0a0a0; font-size: 13px; line-height: 1.5;">Response Target: Within 24 hours</p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
           <!-- Footer -->
           <tr>
-            <td style="background-color: #f9fafb; padding: 40px; text-align: center; border-top: 1px solid #e5e7eb;">
-              <p style="margin: 0 0 15px 0; color: #6b7280; font-size: 14px; line-height: 1.8;">
-                <strong style="color: #111111;">Sanjay Ram</strong><br>
-                Seris Development<br>
-                <a href="tel:+917395910172" style="color: #2563eb; text-decoration: none;">+91 73959 10172</a> | 
-                <a href="mailto:serisdeveloper@gmail.com" style="color: #2563eb; text-decoration: none;">serisdeveloper@gmail.com</a><br>
-                <a href="https://seris.site" style="color: #2563eb; text-decoration: none;">www.seris.site</a>
-              </p>
-              <p style="margin: 0; color: #9ca3af; font-size: 12px;">
-                © ${new Date().getFullYear()} Seris. All rights reserved.
-              </p>
+            <td style="background-color: #f9fafb; padding: 30px; text-align: center; border-top: 1px solid #e5e7eb;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td align="center">
+                    <p style="margin: 0 0 10px 0; color: #1a1a1a; font-size: 14px; font-weight: 700;">Seris Admin Dashboard</p>
+                    <p style="margin: 0 0 15px 0; color: #6b7280; font-size: 13px; line-height: 1.6;">
+                      This is an automated notification for new project submissions.
+                    </p>
+                    <p style="margin: 0; color: #9ca3af; font-size: 12px;">
+                      Received on ${new Date().toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Asia/Kolkata' })} IST
+                    </p>
+                  </td>
+                </tr>
+              </table>
             </td>
           </tr>
           
         </table>
+        
       </td>
     </tr>
   </table>
+  
 </body>
 </html>
 `;
@@ -265,7 +450,7 @@ export const getUserEmailTemplate = (data) => `<!DOCTYPE html>
           
           <!-- Header with Logo and Status -->
           <tr>
-            <td style="background: linear-gradient(135deg,  #059669 0%, #059669 100%); padding: 30px 20px;">
+            <td style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px 20px;">
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
                 <tr>
                   <td width="30%" align="left" valign="middle">
@@ -450,10 +635,27 @@ export const getUserEmailTemplate = (data) => `<!DOCTYPE html>
                           <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
                             <tr>
                               <td>
-                                <p style="margin: 0; color: #1a1a1a; font-size: 16px; font-weight: 700;">Total Amount</p>
+                                <p style="margin: 0; color: #1a1a1a; font-size: 16px; font-weight: 700;">Project Total</p>
                               </td>
                               <td align="right">
-                                <p style="margin: 0; color: #10b981; font-size: 22px; font-weight: 700;">${data.servicePrice}</p>
+                                <p style="margin: 0; color: #10b981; font-size: 22px; font-weight: 700;">₹${data.servicePrice}</p>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      
+                      <!-- Additional Info -->
+                      <tr>
+                        <td style="padding-top: 15px;">
+                          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #fef3c7; border-radius: 8px; border-left: 3px solid #f59e0b;">
+                            <tr>
+                              <td style="padding: 12px 15px;">
+                                <p style="margin: 0 0 6px 0; color: #92400e; font-size: 13px; font-weight: 700;">💡 Domain & Hosting Options</p>
+                                <p style="margin: 0; color: #78350f; font-size: 12px; line-height: 1.5;">
+                                  <strong>Free Option:</strong> Get a subdomain under seris.site at no cost<br>
+                                  <strong>Custom Domain:</strong> Domain registration & hosting charges applicable based on your requirements (discussed during consultation)
+                                </p>
                               </td>
                             </tr>
                           </table>
