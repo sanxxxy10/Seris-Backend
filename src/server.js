@@ -17,7 +17,8 @@ const app = express();
 
 // Middleware
 const allowedOrigins = [
-  "https://seris.site",      // deployed frontend
+  "https://seris.site", 
+  "https://seris-frontend.onrender.com",// deployed frontend
   "http://127.0.0.1:5500",   // local Live Server
   "http://localhost:5500"    // alternative local host
 ];
@@ -62,4 +63,5 @@ mongoose
     app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
   })
   .catch((err) => console.error("❌ MongoDB Connection Failed:", err));
+
 
